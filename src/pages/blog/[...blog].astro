@@ -1,0 +1,59 @@
+---
+import BlogLanding from "../../layouts/Layouts.astro";
+
+import PostSummary from "../../layouts/partials/blog/PostSummary.astro";
+import Pagination from '../../components/Pagination.astro';
+
+const allPosts = await Astro.glob('./*.md*');
+export async function getStaticPaths({ paginate }) {
+  const allPosts = await Astro.glob('./*.md*');
+  const formattedPosts = allPosts.sort((a, b) => new Date(a.frontmatter.date) - new Date(b.frontmatter.date)).reverse();
+
+  return paginate(formattedPosts, {
+    pageSize: 5,
+  })
+}
+const { page } = Astro.props;
+const pathname = new URL(Astro.request.url).pathname.split('/');
+const firstPath = pathname[1];
+---
+<BlogLanding frontmatter>
+  <ol class="posts list">
+    {
+      page.data.map((post) => (
+        <li class="post">
+          <PostSummary 
+            url={post.url} 
+            title={post.frontmatter.title} 
+            date={post.frontmatter.date} 
+            summary={post.frontmatter.teaser} 
+            tags={post.frontmatter.tags}
+            categories={post.frontmatter.categories}
+          />
+        </li>
+      ))
+    }
+  </ol>
+
+  {allPosts.length > 10 ? (
+    <div class="mt-4">
+      <Pagination length={page.lastPage} 
+        currentUrl={page.url.current} 
+        currentPage={page.currentPage} 
+        firstUrl={`/${firstPath}`} 
+        prevUrl={page.url.prev} 
+        nextUrl={page.url.next} 
+        lastUrl={`/${firstPath}/${page.lastPage}`}
+      />
+    </div>
+  ) : null}
+</BlogLanding>
+
+<style lang="scss">
+  .post {
+
+    + .post {
+      margin-top: 4rem;
+    }
+  }
+</style>
