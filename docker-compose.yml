@@ -1,9 +1,15 @@
 services:
-  astro-app:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
+      target: development
     ports:
-      - "3000:3000"
+      - "4321:4321"
+      # - "3000:3000"
+    volumes:
+      - .:/app
     environment:
-      - PORT=3000
+      NODE_ENV: development
+
+ 

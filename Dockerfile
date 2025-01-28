@@ -1,26 +1,58 @@
-# Base image
-FROM node:20-alpine3.19 AS base
+# Stage 1: Development
+FROM node:20-alpine AS development
+
+# Set working directory
 WORKDIR /app
-COPY --chown=node:node package*.json ./
-RUN npm ci
 
-# Development image
-FROM base AS development
-COPY --chown=node:node . .
-EXPOSE 3000
-
-# Build stage
-FROM base AS builder
-COPY --chown=node:node . .
-RUN npm run build
-
-# Production stage
-FROM node:20-alpine3.19 AS production
-WORKDIR /app
-COPY --from=builder /app/package.json /app/package.json
-COPY --from=builder /app/dist /app/build
+# Install dependencies
+COPY package.json package-lock.json ./
 RUN npm install
 
-USER node
+# Copy all files
+COPY . .
+
+# Expose the development server port
 EXPOSE 3000
-CMD ["node", "build/index.js"]
+
+# Start the development server
+CMD ["npm", "run", "dev", "--", "--host"]
+
+# Stage 2: Production
+FROM node:20-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
+COPY package.json package-lock.json ./
+RUN npm install
+
+# Copy all files
+COPY . .
+
+# Build the project
+RUN npm run build
+
+# Stage 3: Serve Production
+FROM node:20-alpine As production
+
+# Set working directory
+WORKDIR /app
+
+# Copy built files from builder stage
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/package-lock.json ./
+
+# Install production dependencies
+RUN npm install --only=production
+RUN npm install -g serve
+
+# Expose the port
+EXPOSE 3000
+
+# Start the server
+# CMD ["node", "./dist/server/entry.mjs"]
+CMD ["serve", "dist", "-l", "3000"]
+
+
