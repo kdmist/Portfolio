@@ -1,0 +1,103 @@
+<script>
+  const imageUrl = "../src/assets/Tony.jpg";
+</script>
+
+<style>
+  .text-gradient {
+    background-image: linear-gradient(to right, #06b6d4, #3b82f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .abstract-bg {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.05;
+    filter: blur(80px);
+    z-index: 0;
+  }
+
+  .bg1 {
+    width: 300px;
+    height: 300px;
+    background: #fef08a;
+    top: -60px;
+    left: -80px;
+  }
+
+  .bg2 {
+    width: 250px;
+    height: 250px;
+    background: #fbcfe8;
+    bottom: -100px;
+    right: -40px;
+  }
+
+  .bg3 {
+    width: 200px;
+    height: 200px;
+    background: #bbf7d0;
+    top: 25%;
+    right: 5%;
+  }
+
+  @keyframes subtle-float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  .animate-subtle-float {
+    animation: subtle-float 3s ease-in-out infinite;
+  }
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+<section class="relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 h-auto py-12 md:py-16 px-4 md:px-10 overflow-hidden">
+  <!-- Background shapes -->
+  <div class="abstract-bg bg1"></div>
+  <div class="abstract-bg bg2"></div>
+  <div class="abstract-bg bg3"></div>
+
+  <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
+    <!-- Profile Image -->
+    <div class="flex justify-center">
+      <img
+        src="../src/assets/Tony.jpg"
+        alt="Antony Kiplagat Profile"
+        class="rounded-3xl border-4 border-white shadow-xl h-[60vh] object-cover object-center animate-subtle-float"
+      />
+    </div>
+
+    <!-- Info Section -->
+    <div class="text-center md:text-left">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">
+        ANTONY <span class="text-gradient">KIPKORIR KIPLAGAT</span>
+      </h1>
+      <p class="text-lg md:text-xl text-teal-600 font-semibold uppercase tracking-wide mt-2 mb-4">
+        Software Engineer
+      </p>
+
+      <!-- Social Links -->
+      <div class="flex justify-center md:justify-start space-x-4 mb-4">
+        <a href="https://github.com/kdmist" aria-label="GitHub" class="text-gray-400 hover:text-black transition"><i class="ri-github-fill text-2xl"></i></a>
+        <a href="https://www.linkedin.com/feed/" aria-label="X / Twitter" class="text-gray-400 hover:text-blue-600 transition"><i class="ri-twitter-x-fill text-2xl"></i></a>
+        <a href="#" aria-label="LinkedIn" class="text-gray-400 hover:text-blue-700 transition"><i class="ri-linkedin-box-fill text-2xl"></i></a>
+      </div>
+
+      <!-- Companies/Tags -->
+      <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+        <span class="text-sm text-gray-500 hover:text-teal-700 transition font-medium">#KDM Research</span>
+        <span class="text-sm text-gray-500 hover:text-teal-700 transition font-medium">Amazon</span>
+        <span class="text-sm text-gray-500 hover:text-teal-700 transition font-medium">Logitech</span>
+        <span class="text-sm text-gray-500 hover:text-teal-700 transition font-medium">Google</span>
+        <span class="text-sm text-gray-500 hover:text-teal-700 transition font-medium">Facebook</span>
+      </div>
+    </div>
+  </div>
+</section>

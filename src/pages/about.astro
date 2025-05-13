@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AboutMe from '../components/About.astro';
+
+const myIntroduction = "I'm a passionate software developer with a knack for creating elegant and efficient solutions. With X years of experience in [mention key areas like web development, mobile apps, etc.], I thrive on tackling complex challenges and continuously learning new technologies. My goal is to leverage my skills to build impactful software that makes a difference.";
+
+const mySkills = [
+  "JavaScript (ES6+)",
+  "TypeScript",
+  "React",
+  "Node.js",
+  "Astro",
+  "Tailwind CSS",
+  "Python",
+  "Git & GitHub",
+  "REST APIs",
+  "CI/CD"
+];
+---
+
+<Layout title="My Developer Portfolio">
+  <main>
+    <AboutMe
+      name="[ANTONY KIPKORIR KIPLAGAT]"
+      profileImageUrl="../src/assets/Tony.jpg" introduction={myIntroduction}
+      skills={mySkills}
+      resumeUrl="/path-to-your-resume.pdf" />
+
+    </main>
+</Layout>
