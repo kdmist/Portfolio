@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const myProjects = [
+  {
+    id: "project-1",
+    imageUrl: "../src/assets/1.jpg",
+    imageAltText: "Screenshot of Project Alpha",
+    title: "Project Alpha",
+    description: "A web application that helps users manage their daily tasks efficiently. Built with React, Node.js, and PostgreSQL. Features include user authentication, task prioritization, and collaborative lists.",
+    projectUrl: "https://your-project-alpha-live-url.com",
+    repoUrl: "https://github.com/yourusername/project-alpha",
+    tags: ["React", "Node.js", "PostgreSQL", "Tailwind CSS"]
+  },
+  {
+    id: "project-2",
+    imageUrl: "../src/assets/2.jpg",
+    imageAltText: "Mockup of Project Beta mobile app",
+    title: "Project Beta",
+    description: "A mobile app for tracking fitness goals and progress. Developed using Flutter and Firebase. Offers personalized workout plans and real-time activity monitoring.",
+    projectUrl: "https://your-project-beta-appstore-link.com",
+    tags: ["Flutter", "Firebase", "Mobile App"]
+  },
+  {
+    id: "project-3",
+    imageUrl: "../src/assets/3.jpg",
+    title: "Project Gamma API",
+    description: "A robust RESTful API for an e-commerce platform, providing endpoints for product management, user accounts, and order processing. Built with Python (Flask) and Dockerized for deployment.",
+    repoUrl: "https://github.com/yourusername/project-gamma",
+    tags: ["Python", "Flask", "REST API", "Docker"]
+  },
+  {
+    id: "project-4",
+    imageUrl: "../src/assets/4.jpg",
+    title: "Project Gamma API",
+    description: "A robust RESTful API for an e-commerce platform, providing endpoints for product management, user accounts, and order processing. Built with Python (Flask) and Dockerized for deployment.",
+    repoUrl: "https://github.com/yourusername/project-gamma",
+    tags: ["Python", "Flask", "REST API", "Docker"]
+  }
+];
+
+const heading = "My Projects";
+const defaultProjectImage = "https://via.placeholder.com/600x400?text=Project+Thumbnail";
+---
+
+<Layout>
+  <main>
+    <section id="portfolio" class="py-16 md:py-24 bg-gradient-to-br from-slate-900 via-purple-800 to-slate-700">
+
+      <div class="container mx-auto px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 text-slate-800 dark:text-white">
+          {heading}
+        </h2>
+
+        {
+          myProjects.length > 0 ? (
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+              {myProjects.map((project) => (
+                <div
+                  class="group bg-white dark:bg-slate-900 rounded-xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out hover:shadow-2xl transform hover:-translate-y-1 border border-slate-200 dark:border-slate-700"
+                  id={`project-${project.id}`}
+                >
+                  <a
+                    href={project.projectUrl || project.repoUrl || "#!"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View details for ${project.title}`}
+                    class="block"
+                  >
+                    <img
+                      src={project.imageUrl || defaultProjectImage}
+                      alt={project.imageAltText || `Thumbnail for ${project.title}`}
+                      class="w-full h-56 object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </a>
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2 text-slate-800 dark:text-white">
+                      <a
+                        href={project.projectUrl || project.repoUrl || "#!"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                      >
+                        {project.title}
+                      </a>
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 leading-relaxed">
+                      {project.description.length > 100
+                        ? project.description.substring(0, 97) + "..."
+                        : project.description}
+                    </p>
+
+                    {project.tags && project.tags.length > 0 && (
+                      <div class="mb-4 flex flex-wrap gap-2">
+                        {project.tags.map((tag) => (
+                          <span class="text-xs bg-purple-100 text-purple-700 dark:bg-purple-700 dark:text-purple-100 px-2 py-1 rounded-full">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    <div class="mt-auto flex flex-wrap gap-3">
+                      {project.projectUrl && (
+                        <a
+                          href={project.projectUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-block text-sm bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
+                        >
+                          View Project
+                        </a>
+                      )}
+                      {project.repoUrl && (
+                        <a
+                          href={project.repoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-block text-sm bg-slate-600 hover:bg-slate-700 text-white dark:bg-slate-700 dark:hover:bg-slate-600 font-medium py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-opacity-50"
+                        >
+                          GitHub Repo
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p class="text-center text-slate-500 dark:text-slate-400">
+              No projects to display at the moment. Check back soon!
+            </p>
+          )
+        }
+      </div>
+    </section>
+  </main>
+</Layout>
